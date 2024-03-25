@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
-const Add = () => {
+const AddResource = () => {
   return (
     <div>
       <AddForm />
@@ -128,4 +128,4 @@ const Add = () => {
   }
 }
 
-export default Add;
+export default AddResource;

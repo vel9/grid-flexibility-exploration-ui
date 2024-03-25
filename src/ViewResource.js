@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
-const View = () => {
+const ViewResource = () => {
   const [existingResource, setExistingResource] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [resourceTableData, setResourceTableData] = useState([]);
@@ -105,4 +105,4 @@ const View = () => {
   );
 }
 
-export default View;
+export default ViewResource;

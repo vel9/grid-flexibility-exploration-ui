@@ -5,8 +5,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Home from './Home'
-import Add from './Add'
-import View from './View'
+import AddResource from './AddResource'
+import ViewResource from './ViewResource'
 
 export default function App() {
   return (
@@ -25,8 +25,8 @@ export default function App() {
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/add" element={<Add />} />
-        <Route exact path="/view/:id" element={<View />} />
+        <Route exact path="/add" element={<AddResource />} />
+        <Route exact path="/view/:id" element={<ViewResource />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
