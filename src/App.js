@@ -6,6 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Home from './Home'
 import Add from './Add'
+import View from './View'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/add" element={<Add />} />
+        <Route exact path="/view/:id" element={<View />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
