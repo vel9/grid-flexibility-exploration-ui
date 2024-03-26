@@ -24,7 +24,7 @@ const ViewResource = () => {
     existingResource.name;
 
   useEffect(() => {
-    fetch("/resource/view/" + id)
+    fetch("/api/resource/view/" + id)
       .then((res) => res.json())
       .then((data) => {
         setExistingResource(data.resource);
@@ -48,7 +48,7 @@ const ViewResource = () => {
   function ResourceWindowTable({ resourceWindows }) {
     const rows = [];
     resourceWindows.forEach((resourceWindow) => {
-      rows.push(<ResourceWindowRow resourceWindow={resourceWindow} />);
+      rows.push(<ResourceWindowRow resourceWindow={resourceWindow} key={resourceWindow.name} />);
     });
 
     return (
