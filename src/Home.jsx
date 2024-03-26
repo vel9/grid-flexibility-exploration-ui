@@ -144,6 +144,15 @@ const Home = () => {
                 <Badge bg="secondary" className="float-end">
                   Market: {query.operator} {query.market}, Location:{" "}{query.location}
                 </Badge>
+                {query.fallback?
+                 <Badge bg="danger">
+                    Tomorrow's Prices Not Available Yet
+                 </Badge>
+                 :
+                 <Badge bg="info">
+                    Displaying Tomorrow's Prices
+                 </Badge>
+                 }
               </div>
             </Card.Body>
           </Card>
