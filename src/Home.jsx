@@ -10,12 +10,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
+
 const Home = () => {
   const [existingResources, setExistingResources] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [resourceToDelete, setResourceToDelete] = useState([]);
   const [query, setQuery] = useState([]);
-  const [error, setError] = useState(null);
+  const [apiError, setApiError] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (resource) => {
@@ -34,20 +35,18 @@ const Home = () => {
             setExistingResources(data.table);
             setChartData(data.chart);
             setQuery(data.query);
-          }).catch((error) => {
-            console.log("error", error);
-            setError(error);
+            setApiError(false);
+          })
+          .catch((error) => {
+            setApiError(true);
           });
   }
 
   function handleDelete(resource) {
-    try {
       deleteResource(resource).then((data) => {
         handleClose();
         fetchResources();
       });
-    } catch (error) {
-    }
   }
 
   function deleteResource(resource) {
@@ -57,11 +56,11 @@ const Home = () => {
       method: "POST",
       body: postData,
     })
-    .then((response) => response.json())
-    .then((data) => {
-      return data
+    .then((response) => {
+      setApiError(false);
     })
     .catch((error) => {
+      setApiError(true);
     });
   }
 
@@ -130,7 +129,7 @@ const Home = () => {
           <Card>
             <Card.Body>
               <div>
-
+                {apiError && <div className="alert alert-danger">Error Communicating with Server</div>}
                 <Plot
                   data={chartData}
                   layout={{
