@@ -41,7 +41,7 @@ const AddResource = () => {
         postData.append("name", resource.name);
         postData.append("hours", resource.hours);
 
-        return fetch("/resource/add", {
+        return fetch("/api/resource/add", {
           method: "POST",
           body: postData,
         })

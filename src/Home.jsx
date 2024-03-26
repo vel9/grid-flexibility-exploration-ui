@@ -15,6 +15,7 @@ const Home = () => {
   const [chartData, setChartData] = useState([]);
   const [resourceToDelete, setResourceToDelete] = useState([]);
   const [query, setQuery] = useState([]);
+  const [error, setError] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (resource) => {
@@ -23,35 +24,36 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetch("/resources/view")
-      .then((res) => res.json())
-      .then((data) => {
-        setExistingResources(data.table);
-        setChartData(data.chart);
-        setQuery(data.query);
-      });
+    fetchResources();
   }, []);
+
+  function fetchResources() {
+    fetch("/api/resources/view")
+          .then((res) => res.json())
+          .then((data) => {
+            setExistingResources(data.table);
+            setChartData(data.chart);
+            setQuery(data.query);
+          }).catch((error) => {
+            console.log("error", error);
+            setError(error);
+          });
+  }
 
   function handleDelete(resource) {
     try {
       deleteResource(resource).then((data) => {
         handleClose();
-        fetch("/resources/view")
-            .then((res) => res.json())
-            .then((data) => {
-            // why is this duplicated..
-              setExistingResources(data.table);
-              setChartData(data.chart);
-              setQuery(data.query);
-            });
+        fetchResources();
       });
-    } catch (err) {}
+    } catch (error) {
+    }
   }
 
   function deleteResource(resource) {
     const postData = new FormData();
     postData.append("unique_id", resource.unique_id);
-    return fetch("/resource/delete", {
+    return fetch("/api/resource/delete", {
       method: "POST",
       body: postData,
     })
@@ -60,7 +62,6 @@ const Home = () => {
       return data
     })
     .catch((error) => {
-      // Handle any errors
     });
   }
 
@@ -77,24 +78,23 @@ const Home = () => {
               View
             </Button>
           </Link>{" "}
-          <Button variant="outline-danger" size="sm" onClick={() => handleShow(resource)}>
+            <Button variant="outline-danger" size="sm" onClick={() => handleShow(resource)}>
+              Delete
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>{resourceToDelete.name}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Are you sure you want to delete {resourceToDelete.name}?</Modal.Body>
+              <Modal.Footer>
+                <Button variant="outline-secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="danger" onClick={() => handleDelete(resourceToDelete)}>
                   Delete
                 </Button>
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>{resourceToDelete.name}</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>Are you sure you want to delete {resourceToDelete.name}?</Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button variant="danger" onClick={() => handleDelete(resourceToDelete)}>
-                      Delete
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-
+              </Modal.Footer>
+            </Modal>
         </td>
       </tr>
     );
@@ -130,6 +130,7 @@ const Home = () => {
           <Card>
             <Card.Body>
               <div>
+
                 <Plot
                   data={chartData}
                   layout={{
@@ -142,8 +143,7 @@ const Home = () => {
               </div>
               <div>
                 <Badge bg="secondary" className="float-end">
-                  Market: {query.operator} {query.market}, Location:{" "}
-                  {query.location}
+                  Market: {query.operator} {query.market}, Location:{" "}{query.location}
                 </Badge>
               </div>
             </Card.Body>
