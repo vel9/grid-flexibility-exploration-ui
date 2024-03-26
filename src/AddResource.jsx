@@ -8,14 +8,11 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
 const AddResource = () => {
-  return (
-    <div>
-      <AddForm />
-    </div>
-  );
+
 
   function AddForm() {
     const [validationErrors, setValidationErrors] = useState({});
+    const [apiError, setApiError] = useState(false);
     const navigate = useNavigate();
     const [resource, setResource] = useState({
       name: "",
@@ -40,7 +37,6 @@ const AddResource = () => {
         const postData = new FormData();
         postData.append("name", resource.name);
         postData.append("hours", resource.hours);
-
         return fetch("/api/resource/add", {
           method: "POST",
           body: postData,
@@ -49,15 +45,12 @@ const AddResource = () => {
           .then((data) => {
             return data
           })
-          .catch((error) => {
-            // Handle any errors
-          });
       }
 
     function handleSubmit(e) {
       e.preventDefault();
-      try {
         submitForm(resource).then((data) => {
+            setApiError(false);
             if(data != null && data.has_errors){
                 setValidationErrors(data.errors)
             } else {
@@ -65,9 +58,9 @@ const AddResource = () => {
                 navigate("/", {});
             }
         })
-      } catch (err) {
-
-      }
+        .catch((error) => {
+            setApiError(true);
+        });
     }
 
     return (
@@ -78,6 +71,7 @@ const AddResource = () => {
             <Card>
               <Card.Body>
                 <Col>
+                    {apiError && <div className="alert alert-danger">Error Communicating with Server</div>}
                   <Form>
                     <Form.Group className="mb-3" controlId="formName">
                       <Form.Label>Resource Name</Form.Label>
@@ -126,6 +120,12 @@ const AddResource = () => {
       </Container>
     );
   }
+
+    return (
+      <div>
+        <AddForm />
+      </div>
+    );
 }
 
 export default AddResource;
