@@ -85,7 +85,9 @@ const ViewResource = () => {
                     layout={{
                       title: chartName,
                       xaxis: { title: "Time" },
-                      yaxis: { title: "Price (LMP)" }
+                      yaxis: { title: "Price (LMP)" },
+                      width: 800,
+                      height: 500
                     }}
                   />
                   <ResourceWindowTable resourceWindows={resourceTableData} />
