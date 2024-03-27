@@ -11,7 +11,7 @@ import ViewResource from './ViewResource'
 export default function App() {
   return (
     <Router>
-      <Navbar bg="dark" data-bs-theme="dark" style={{ marginBottom: "2vh" }}>
+      <Navbar bg="dark" data-bs-theme="dark" style={{ marginBottom: "2vh" }} sticky="top">
         <Container>
           <Navbar.Brand href="/">Energy Resources</Navbar.Brand>
           <Nav>
