@@ -5,11 +5,10 @@ import Card from "react-bootstrap/Card";
 import Modal from 'react-bootstrap/Modal';
 import Plot from "react-plotly.js";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-
+import DataSourceInfoBadge from './DataSourceInfoBadge'
 
 const Home = () => {
   const [existingResources, setExistingResources] = useState([]);
@@ -135,25 +134,12 @@ const Home = () => {
                   layout={{
                     title: "Lowest Price Window for Each Resource",
                     xaxis: { title: "Time" },
-                    yaxis: { title: "Price (LMP)" },
+                    yaxis: { title: "Price (LMP)" }
                   }}
                 />
                 <ResourceTable resources={existingResources} />
               </div>
-              <div>
-                <Badge bg="secondary" className="float-end">
-                  Market: {query.operator} {query.market}, Location:{" "}{query.location}
-                </Badge>
-                {query.fallback?
-                 <Badge bg="danger">
-                    Tomorrow's Prices Not Available Yet
-                 </Badge>
-                 :
-                 <Badge bg="info">
-                    Displaying Tomorrow's Prices
-                 </Badge>
-                 }
-              </div>
+              <DataSourceInfoBadge query={query} />
             </Card.Body>
           </Card>
         </Col>

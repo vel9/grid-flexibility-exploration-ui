@@ -8,6 +8,7 @@ import Badge from "react-bootstrap/Badge";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import DataSourceInfoBadge from './DataSourceInfoBadge'
 
 const ViewResource = () => {
   const [existingResource, setExistingResource] = useState([]);
@@ -84,27 +85,12 @@ const ViewResource = () => {
                     layout={{
                       title: chartName,
                       xaxis: { title: "Time" },
-                      yaxis: { title: "Price (LMP)" },
+                      yaxis: { title: "Price (LMP)" }
                     }}
                   />
-
                   <ResourceWindowTable resourceWindows={resourceTableData} />
                 </div>
-                <div>
-                  <Badge bg="secondary" className="float-end">
-                    Market: {query.operator} {query.market}, Location:{" "}
-                    {query.location}
-                  </Badge>
-                  {query.fallback?
-                   <Badge bg="danger">
-                      Tomorrow's Prices Not Available Yet
-                   </Badge>
-                   :
-                   <Badge bg="info">
-                      Displaying Tomorrow's Prices
-                   </Badge>
-                   }
-                </div>
+                <DataSourceInfoBadge query={query} />
             </Card.Body>
           </Card>
         </Col>
