@@ -1,8 +1,5 @@
-# React + Vite
+This project is the front-end UI for [Grid Exploration API](https://github.com/vel9/grid-flexibility-exploration-api)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+It's an interactive version of "Resources Scheduled Day Ahead" chart of my data exploration [here](https://github.com/vel9/grid-flexibility-exploration/blob/main/HomeGridFlexibility.ipynb) - inspired by the flexible load profile discussion in Saul Griffith's *Electrify* (p.89).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The React UI is bootstrapped with the [React + Vite template](https://vitejs.dev/guide/) and makes requests to the above API. It displays data with Plotly, provides form validations and general error-handling for communicating with backend.
