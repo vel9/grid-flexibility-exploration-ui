@@ -4,14 +4,19 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import Home from './Home'
-import AddResource from './AddResource'
-import ViewResource from './ViewResource'
+import Home from "./Home";
+import AddResource from "./AddResource";
+import ViewResource from "./ViewResource";
 
 export default function App() {
   return (
     <Router>
-      <Navbar bg="dark" data-bs-theme="dark" style={{ marginBottom: "2vh" }} sticky="top">
+      <Navbar
+        bg="dark"
+        data-bs-theme="dark"
+        style={{ marginBottom: "2vh" }}
+        sticky="top"
+      >
         <Container>
           <Navbar.Brand href="/">Energy Resources</Navbar.Brand>
           <Nav>

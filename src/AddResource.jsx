@@ -8,8 +8,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
 const AddResource = () => {
-
-
   function AddForm() {
     const [validationErrors, setValidationErrors] = useState({});
     const [apiError, setApiError] = useState(false);
@@ -34,32 +32,33 @@ const AddResource = () => {
     }
 
     function submitForm(resource) {
-        const postData = new FormData();
-        postData.append("name", resource.name);
-        postData.append("hours", resource.hours);
-        return fetch("/api/resource/add", {
-          method: "POST",
-          body: postData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            return data
-          })
-      }
+      const postData = new FormData();
+      postData.append("name", resource.name);
+      postData.append("hours", resource.hours);
+      return fetch("/api/resource/add", {
+        method: "POST",
+        body: postData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          return data;
+        });
+    }
 
     function handleSubmit(e) {
       e.preventDefault();
-        submitForm(resource).then((data) => {
-            setApiError(false);
-            if(data != null && data.has_errors){
-                setValidationErrors(data.errors)
-            } else {
-                setValidationErrors({})
-                navigate("/", {});
-            }
+      submitForm(resource)
+        .then((data) => {
+          setApiError(false);
+          if (data != null && data.has_errors) {
+            setValidationErrors(data.errors);
+          } else {
+            setValidationErrors({});
+            navigate("/", {});
+          }
         })
         .catch((error) => {
-            setApiError(true);
+          setApiError(true);
         });
     }
 
@@ -71,7 +70,11 @@ const AddResource = () => {
             <Card>
               <Card.Body>
                 <Col>
-                    {apiError && <div className="alert alert-danger">Error Communicating with Server</div>}
+                  {apiError && (
+                    <div className="alert alert-danger">
+                      Error Communicating with Server
+                    </div>
+                  )}
                   <Form>
                     <Form.Group className="mb-3" controlId="formName">
                       <Form.Label>Resource Name</Form.Label>
@@ -82,7 +85,7 @@ const AddResource = () => {
                         isInvalid={validationErrors.name}
                       />
                       <Form.Control.Feedback type="invalid">
-                       {validationErrors.name}
+                        {validationErrors.name}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formHours">
@@ -94,8 +97,8 @@ const AddResource = () => {
                         isInvalid={validationErrors.hours}
                       />
                       <Form.Control.Feedback type="invalid">
-                         {validationErrors.hours}
-                       </Form.Control.Feedback>
+                        {validationErrors.hours}
+                      </Form.Control.Feedback>
                       <Form.Text className="text-muted">
                         Enter number of continuous hours of energy consumption
                       </Form.Text>
@@ -121,11 +124,11 @@ const AddResource = () => {
     );
   }
 
-    return (
-      <div>
-        <AddForm />
-      </div>
-    );
-}
+  return (
+    <div>
+      <AddForm />
+    </div>
+  );
+};
 
 export default AddResource;

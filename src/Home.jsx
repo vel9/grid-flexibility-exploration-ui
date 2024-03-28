@@ -2,13 +2,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Card from "react-bootstrap/Card";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import Plot from "react-plotly.js";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import DataSourceInfoBadge from './DataSourceInfoBadge'
+import DataSourceInfoBadge from "./DataSourceInfoBadge";
 
 const Home = () => {
   const [existingResources, setExistingResources] = useState([]);
@@ -19,9 +19,9 @@ const Home = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (resource) => {
-    setResourceToDelete(resource)
+    setResourceToDelete(resource);
     setShow(true);
-  }
+  };
 
   useEffect(() => {
     fetchResources();
@@ -29,23 +29,23 @@ const Home = () => {
 
   function fetchResources() {
     fetch("/api/resources/view")
-          .then((res) => res.json())
-          .then((data) => {
-            setExistingResources(data.table);
-            setChartData(data.chart);
-            setQuery(data.query);
-            setApiError(false);
-          })
-          .catch((error) => {
-            setApiError(true);
-          });
+      .then((res) => res.json())
+      .then((data) => {
+        setExistingResources(data.table);
+        setChartData(data.chart);
+        setQuery(data.query);
+        setApiError(false);
+      })
+      .catch((error) => {
+        setApiError(true);
+      });
   }
 
   function handleDelete(resource) {
-      deleteResource(resource).then((data) => {
-        handleClose();
-        fetchResources();
-      });
+    deleteResource(resource).then((data) => {
+      handleClose();
+      fetchResources();
+    });
   }
 
   function deleteResource(resource) {
@@ -55,12 +55,12 @@ const Home = () => {
       method: "POST",
       body: postData,
     })
-    .then((response) => {
-      setApiError(false);
-    })
-    .catch((error) => {
-      setApiError(true);
-    });
+      .then((response) => {
+        setApiError(false);
+      })
+      .catch((error) => {
+        setApiError(true);
+      });
   }
 
   function ResourceRow({ resource }) {
@@ -68,7 +68,9 @@ const Home = () => {
       <tr>
         <td>{resource.name}</td>
         <td>{resource.hours}</td>
-        <td>{resource.start} to {resource.end}</td>
+        <td>
+          {resource.start} to {resource.end}
+        </td>
         <td>{resource.average}</td>
         <td>
           <Link to={`/view/${resource.unique_id}`}>
@@ -76,23 +78,32 @@ const Home = () => {
               View
             </Button>
           </Link>{" "}
-            <Button variant="outline-danger" size="sm" onClick={() => handleShow(resource)}>
-              Delete
-            </Button>
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>{resourceToDelete.name}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Are you sure you want to delete {resourceToDelete.name}?</Modal.Body>
-              <Modal.Footer>
-                <Button variant="outline-secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="danger" onClick={() => handleDelete(resourceToDelete)}>
-                  Delete
-                </Button>
-              </Modal.Footer>
-            </Modal>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            onClick={() => handleShow(resource)}
+          >
+            Delete
+          </Button>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>{resourceToDelete.name}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are you sure you want to delete {resourceToDelete.name}?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="outline-secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => handleDelete(resourceToDelete)}
+              >
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </td>
       </tr>
     );
@@ -110,7 +121,7 @@ const Home = () => {
           <tr>
             <th>Resource Name</th>
             <th>Hours Needed</th>
-            <th style={{ color: 'green' }}>Optimal Window</th>
+            <th style={{ color: "green" }}>Optimal Window</th>
             <th>Average Price</th>
             <th>Actions</th>
           </tr>
@@ -128,7 +139,11 @@ const Home = () => {
           <Card>
             <Card.Body>
               <div>
-                {apiError && <div className="alert alert-danger">Error Communicating with Server</div>}
+                {apiError && (
+                  <div className="alert alert-danger">
+                    Error Communicating with Server
+                  </div>
+                )}
                 <Plot
                   data={chartData}
                   layout={{
@@ -136,7 +151,7 @@ const Home = () => {
                     xaxis: { title: "Time" },
                     yaxis: { title: "Price (LMP)" },
                     width: 800,
-                    height: 500
+                    height: 500,
                   }}
                 />
                 <ResourceTable resources={existingResources} />
@@ -149,5 +164,5 @@ const Home = () => {
       </Row>
     </Container>
   );
-}
+};
 export default Home;

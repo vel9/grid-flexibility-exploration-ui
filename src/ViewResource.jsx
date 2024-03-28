@@ -8,7 +8,7 @@ import Badge from "react-bootstrap/Badge";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import DataSourceInfoBadge from './DataSourceInfoBadge'
+import DataSourceInfoBadge from "./DataSourceInfoBadge";
 
 const ViewResource = () => {
   const [existingResource, setExistingResource] = useState([]);
@@ -49,7 +49,12 @@ const ViewResource = () => {
   function ResourceWindowTable({ resourceWindows }) {
     const rows = [];
     resourceWindows.forEach((resourceWindow) => {
-      rows.push(<ResourceWindowRow resourceWindow={resourceWindow} key={resourceWindow.name} />);
+      rows.push(
+        <ResourceWindowRow
+          resourceWindow={resourceWindow}
+          key={resourceWindow.name}
+        />,
+      );
     });
 
     return (
@@ -74,25 +79,25 @@ const ViewResource = () => {
         <Col md="auto">
           <Card>
             <Card.Body>
-                <div>
-                  <Link to="/">
-                    <Button variant="outline-dark">Back</Button>
-                  </Link>
-                </div>
-                <div>
-                  <Plot
-                    data={chartData}
-                    layout={{
-                      title: chartName,
-                      xaxis: { title: "Time" },
-                      yaxis: { title: "Price (LMP)" },
-                      width: 800,
-                      height: 500
-                    }}
-                  />
-                  <ResourceWindowTable resourceWindows={resourceTableData} />
-                </div>
-                <DataSourceInfoBadge query={query} />
+              <div>
+                <Link to="/">
+                  <Button variant="outline-dark">Back</Button>
+                </Link>
+              </div>
+              <div>
+                <Plot
+                  data={chartData}
+                  layout={{
+                    title: chartName,
+                    xaxis: { title: "Time" },
+                    yaxis: { title: "Price (LMP)" },
+                    width: 800,
+                    height: 500,
+                  }}
+                />
+                <ResourceWindowTable resourceWindows={resourceTableData} />
+              </div>
+              <DataSourceInfoBadge query={query} />
             </Card.Body>
           </Card>
         </Col>
@@ -100,6 +105,6 @@ const ViewResource = () => {
       </Row>
     </Container>
   );
-}
+};
 
 export default ViewResource;
