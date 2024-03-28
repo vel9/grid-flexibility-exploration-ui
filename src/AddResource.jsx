@@ -7,6 +7,7 @@ import Card from "react-bootstrap/Card";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
+{/* ref: https://react.dev/learn/choosing-the-state-structure */}
 const AddResource = () => {
   function AddForm() {
     const [validationErrors, setValidationErrors] = useState({});
@@ -75,6 +76,7 @@ const AddResource = () => {
                       Error Communicating with Server
                     </div>
                   )}
+                  {/* ref: https://react-bootstrap.netlify.app/docs/forms/overview */}
                   <Form>
                     <Form.Group className="mb-3" controlId="formName">
                       <Form.Label>Resource Name</Form.Label>

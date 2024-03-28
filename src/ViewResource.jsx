@@ -46,6 +46,7 @@ const ViewResource = () => {
     );
   }
 
+  {/* ref: https://react.dev/learn/thinking-in-react#step-4-identify-where-your-state-should-live */}
   function ResourceWindowTable({ resourceWindows }) {
     const rows = [];
     resourceWindows.forEach((resourceWindow) => {

@@ -109,6 +109,7 @@ const Home = () => {
     );
   }
 
+  {/* ref: https://react.dev/learn/thinking-in-react#step-4-identify-where-your-state-should-live */}
   function ResourceTable({ resources }) {
     const rows = [];
     resources.forEach((resource) => {
@@ -144,6 +145,7 @@ const Home = () => {
                     Error Communicating with Server
                   </div>
                 )}
+                {/* https://plotly.com/javascript/react/ */}
                 <Plot
                   data={chartData}
                   layout={{
