@@ -33,7 +33,7 @@ const ViewResource = () => {
         setResourceTableData(data.table);
         setQuery(data.query);
       });
-  });
+  }, []);
 
   function ResourceWindowRow({ resourceWindow }) {
     return (
