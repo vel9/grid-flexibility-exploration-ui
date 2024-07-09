@@ -1,3 +1,4 @@
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
@@ -36,13 +37,13 @@ const Home = () => {
         setQuery(data.query);
         setApiError(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setApiError(true);
       });
   }
 
   function handleDelete(resource) {
-    deleteResource(resource).then((data) => {
+    deleteResource(resource).then(() => {
       handleClose();
       fetchResources();
     });
@@ -55,10 +56,10 @@ const Home = () => {
       method: "POST",
       body: postData,
     })
-      .then((response) => {
+      .then(() => {
         setApiError(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setApiError(true);
       });
   }

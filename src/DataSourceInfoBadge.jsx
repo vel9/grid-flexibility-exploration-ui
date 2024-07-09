@@ -1,6 +1,8 @@
+import React from "react";
 import Badge from "react-bootstrap/Badge";
 
 const DataBadge = ({ query }) => {
+
   return (
     <div>
       <Badge bg="secondary" className="float-end">
@@ -8,11 +10,11 @@ const DataBadge = ({ query }) => {
       </Badge>
       {query.fallback ? (
         <Badge bg="danger" className="float-start">
-          Tomorrow's Prices Not Available Yet
+          {"Tomorrow's Prices Not Available Yet"}
         </Badge>
       ) : (
         <Badge bg="info" className="float-start">
-          Displaying Tomorrow's Prices
+          {"Displaying Tomorrow's Prices"}
         </Badge>
       )}
     </div>

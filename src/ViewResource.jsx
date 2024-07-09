@@ -1,10 +1,10 @@
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Card from "react-bootstrap/Card";
 import Plot from "react-plotly.js";
-import Badge from "react-bootstrap/Badge";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -33,7 +33,7 @@ const ViewResource = () => {
         setResourceTableData(data.table);
         setQuery(data.query);
       });
-  }, []);
+  }, [id]);
 
   function ResourceWindowRow({ resourceWindow }) {
     return (

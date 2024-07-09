@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -58,7 +59,7 @@ const AddResource = () => {
             navigate("/", {});
           }
         })
-        .catch((error) => {
+        .catch(() => {
           setApiError(true);
         });
     }
